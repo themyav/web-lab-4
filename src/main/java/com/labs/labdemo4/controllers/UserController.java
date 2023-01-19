@@ -2,6 +2,7 @@ package com.labs.labdemo4.controllers;
 
 import com.labs.labdemo4.model.UserR;
 import com.labs.labdemo4.repo.UserRepo;
+import com.labs.labdemo4.service.AuthService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class UserController {
 
     @PostMapping("register")
     public UserR create(@RequestBody UserR user){
+        user.setPassword(AuthService.codePassword(user.getPassword()));
         return userRepo.save(user);
     }
 

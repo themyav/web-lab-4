@@ -7,11 +7,15 @@ import com.labs.labdemo4.model.JwtResponse;
 import com.labs.labdemo4.exception.WrongPasswordException;
 import com.labs.labdemo4.model.UserR;
 import io.jsonwebtoken.Claims;
+import jakarta.xml.bind.DatatypeConverter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +30,7 @@ public class AuthService {
     public JwtResponse login(@NonNull JwtRequest authRequest) {
         final UserR user = userService.getByLogin(authRequest.getLogin())
                 .orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+        authRequest.setPassword(codePassword(authRequest.getPassword()));
         if (user.getPassword().equals(authRequest.getPassword())) {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
@@ -68,6 +73,16 @@ public class AuthService {
         throw new WrongPasswordException("Невалидный JWT токен");
     }
 
+    public static String codePassword(String password){
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        byte[] digest = md.digest(password.getBytes(StandardCharsets.UTF_8));
+        return DatatypeConverter.printHexBinary(digest).toLowerCase();
+    }
     public JwtAuthentication getAuthInfo() {
         return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
     }

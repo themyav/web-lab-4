@@ -6,7 +6,7 @@ Vue.component('enter-form', {
             lastName: '',
             login: '',
             password: '',
-            message: ''
+            point: ''
         }
     },
     template :
@@ -20,16 +20,16 @@ Vue.component('enter-form', {
         '  <input type="text" id="password" maxlength="15" v-model="password"/><br>\n' +
         '  <button id ="enter" @click="validateEnter">Войти</button>\n' +
         '  <button id ="register" @click="validateRegistration">Зарегистрироваться</button>\n' +
-        '  <p>{{ message }}</p></div>',
+        '  <p>{{ point }}</p></div>',
     methods: {
         validateData: function () {
             if (this.password.length !== 0 && this.login.length !== 0) {
-                this.message = "";
+                this.point = "";
                 document.getElementById("login").style.backgroundColor = 'white';
                 document.getElementById("password").style.backgroundColor = 'white';
                 return true;
             } else {
-                this.message = 'Поля <<логин>> и <<пароль>> должны быть заполнены!';
+                this.point = 'Поля <<логин>> и <<пароль>> должны быть заполнены!';
                 document.getElementById("login").style.backgroundColor = (this.login.length ? 'white' : 'red');
                 document.getElementById("password").style.backgroundColor = (this.password.length ? 'white' : 'red');
                 return false;
@@ -42,9 +42,9 @@ Vue.component('enter-form', {
             }
             this.$http.post('/users/register', user
             ).then(result => {
-                this.message = 'Вы успешно авторизованы!';
+                this.point = 'Вы успешно авторизованы!';
             }, result => {
-                this.message = 'Невозможно добавить пользователя';
+                this.point = 'Невозможно добавить пользователя';
             });
         },
         validateRegistration: function () {
@@ -53,11 +53,11 @@ Vue.component('enter-form', {
                 let response = this.save(this.login, this.password, false);
                 response.then(result => {
                     console.log(result.status);
-                    this.message = "Пользователь с таким логином уже есть";
+                    this.point = "Пользователь с таким логином уже есть";
                 }, result => {
                     if (result.status === 404) this.createNewUser();
-                    else if (result.status === 403) this.message = "Пользователь с таким логином уже есть";
-                    else this.message = "Невозможно создать пользователя";
+                    else if (result.status === 403) this.point = "Пользователь с таким логином уже есть";
+                    else this.point = "Невозможно создать пользователя";
                 });
             }
         },
@@ -69,9 +69,9 @@ Vue.component('enter-form', {
                     this.authorize(result);
                 }, result => {
                     console.log(result.status);
-                    if (result.status === 404) this.message = "Пользователь с такими логином не найден!";
-                    else if (result.status === 403) this.message = "Неверное имя пользователя или пароль!";
-                    else this.message = "Доступ к сайту запрещен!";
+                    if (result.status === 404) this.point = "Пользователь с такими логином не найден!";
+                    else if (result.status === 403) this.point = "Неверное имя пользователя или пароль!";
+                    else this.point = "Доступ к сайту запрещен!";
                 });
             }
         },

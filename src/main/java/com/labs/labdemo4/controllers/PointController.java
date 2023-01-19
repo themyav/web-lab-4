@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("message")
+@RequestMapping("point")
 public class PointController {
     private final PointRepo pointRepo;
 
