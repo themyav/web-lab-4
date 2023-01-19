@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(
                         authz -> authz
-                                .requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/index.html", "/js/*.js", "/js/drawer.js", "/favicon.ico").permitAll()
+                                .requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/index.html", "/js/*.js", "/favicon.ico").permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)

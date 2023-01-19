@@ -21,20 +21,11 @@ public class UserR {
 
     @Id
     private String login;
-
-    private String firstName;
-    private String lastName;
-
     private String password;
 
-    private Set<Role> roles;
-
-    public UserR(String login, String password, String firstName, String lastName, Set<Role> roles){
+    public UserR(String login, String password){
         this.login = login;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.roles = roles;
     }
 
     @Override

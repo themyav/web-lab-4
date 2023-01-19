@@ -26,11 +26,4 @@ public class HelloController {
         return ResponseEntity.ok("Hello user " + authInfo.getPrincipal() + "!");
     }*/
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("hello/admin")
-    public ResponseEntity<String> helloAdmin() {
-        final JwtAuthentication authInfo = authService.getAuthInfo();
-        return ResponseEntity.ok("Hello admin " + authInfo.getPrincipal() + "!");
-    }
-
 }
