@@ -6,19 +6,25 @@ Vue.component('enter-form', {
             lastName: '',
             login: '',
             password: '',
-            message: ''
+            passwordRepeated : '',
+            message: '',
+            registration : false
         }
     },
+    //TODO сравнение пароля и повторного пароля + возврат к странице входа когда зарегался и подстановка твоих данных в форму
     template :
         '<div><h3>Войдите или зарегестрируйтесь</h3>\n' +
         '  <label for="login">Логин</label>\n' +
         '  <input type="text" id="login" maxlength="15" v-model="login"/><br>\n' +
         '  <label for="password">Пароль</label>\n' +
-        '  <input type="text" id="password" maxlength="15" v-model="password"/><br>\n' +
-        '  <button id ="enter" @click="validateEnter">Войти</button>\n' +
-        '  <button id ="register" @click="validateRegistration">Зарегистрироваться</button>\n' +
-        '  <p>{{ point }}</p></div>',
+        '  <input type="password" id="password" maxlength="15" v-model="password"/><br>\n' +
+        '  <div v-if="!this.registration"><button id ="enter" @click="validateEnter">Войти</button><button @click="switchToRegistration">У меня нет аккаунта</button></div>' +
+        '  <div v-else><label for="password2">Повторите пароль</label><input type="password" id="password2" maxlength="15" v-model="passwordRepeated"/><button id ="register" @click="validateRegistration">Зарегистрироваться</button></div>\n' +
+        '  <p>{{ registration }}</p></div>',
     methods: {
+        switchToRegistration : function(){
+            this.registration = true;
+        },
         validateData: function () {
             if (this.password.length !== 0 && this.login.length !== 0) {
                 this.message = "";
