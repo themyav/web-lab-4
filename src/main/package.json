@@ -1,9 +1,0 @@
-{
-  "type": "module",
-  "name": "main",
-  "version": "1.0.0",
-  "dependencies": {
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
-  }
-}

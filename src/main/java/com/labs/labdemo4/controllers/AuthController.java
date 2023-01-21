@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import com.labs.labdemo4.model.JwtRequest;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/auth")
@@ -21,6 +18,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) {
         try{
@@ -32,13 +30,13 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatusCode.valueOf(404));
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("token")
     public ResponseEntity<JwtResponse> getNewAccessToken(@RequestBody RefreshJwtRequest request) {
         final JwtResponse token = authService.getAccessToken(request.getRefreshToken());
         return ResponseEntity.ok(token);
     }
-
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("refresh")
     public ResponseEntity<JwtResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) {
         final JwtResponse token = authService.refresh(request.getRefreshToken());

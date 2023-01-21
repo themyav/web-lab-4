@@ -28,8 +28,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(
                         authz -> authz
-                                .requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/index.html", "/js/*.js", "/favicon.ico").permitAll()
-                                .anyRequest().authenticated()
+                                //.requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/", "/js/*.js", "/js/pages/App.vue", "/favicon.ico").permitAll()
+                                .anyRequest().permitAll()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 ).build();

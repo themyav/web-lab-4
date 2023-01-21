@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("point")
+@CrossOrigin(origins = "http://localhost:8080")
 public class PointController {
     private final PointRepo pointRepo;
 
