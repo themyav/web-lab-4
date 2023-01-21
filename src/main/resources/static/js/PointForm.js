@@ -19,17 +19,21 @@ Vue.component('enter-form', {
         '  <label for="password">Пароль</label>\n' +
         '  <input type="password" id="password" maxlength="15" v-model="password"/><br>\n' +
         '  <div v-if="!this.registration"><button id ="enter" @click="validateEnter">Войти</button><button @click="switchToRegistration">У меня нет аккаунта</button></div>' +
-        '  <div v-else><label for="password2">Повторите пароль</label><input type="password" id="password2" maxlength="15" v-model="passwordRepeated"/><button id ="register" @click="validateRegistration">Зарегистрироваться</button></div>\n' +
-        '  <p>{{ registration }}</p></div>',
+        '  <div v-else><label for="password2">Повторите пароль</label><input type="password" id="password2" maxlength="15" v-model="passwordRepeated"/><br><button @click="switchToRegistration">Назад</button><button id ="register" @click="validateRegistration">Зарегистрироваться</button></div>\n' +
+        '  <p>{{ message }}</p></div>',
     methods: {
         switchToRegistration : function(){
-            this.registration = true;
+            this.registration = !this.registration;
         },
         validateData: function () {
             if (this.password.length !== 0 && this.login.length !== 0) {
                 this.message = "";
                 document.getElementById("login").style.backgroundColor = 'white';
                 document.getElementById("password").style.backgroundColor = 'white';
+                if(this.registration && this.passwordRepeated !== this.password){
+                    this.message = 'Пароли не совпадают!';
+                    return false;
+                }
                 return true;
             } else {
                 this.message = 'Поля <<логин>> и <<пароль>> должны быть заполнены!';
@@ -45,7 +49,8 @@ Vue.component('enter-form', {
             }
             this.$http.post('/users/register', user
             ).then(result => {
-                this.message = 'Вы успешно авторизованы!';
+                this.message = 'Вы успешно зарегестрированы! Зайдите в аккаунт.';
+                this.switchToRegistration();
             }, result => {
                 this.message = 'Невозможно добавить пользователя';
             });
