@@ -32,7 +32,9 @@ export default {
     }
   },
   mounted() {
-    this.draw();
+    this.x = 1;
+    this.r = 1;
+    this.draw(1);
   },
   methods: {
     processGraphClick: function (e) {

@@ -91,7 +91,7 @@ export default {
         }).then(response => {
               console.log(response);
               this.length = "Вы успешно авторизованы!";
-              this.$emit('onRegistrated', this.token, this.login)
+              this.$emit('onRegistrated', this.accessToken, this.login)
             },
             response => {
               console.log("wrong!", response);

@@ -21,13 +21,9 @@ public class HelloController {
     //@PreAuthorize("hasAuthority('USER')")
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("hello/user")
-    public String main(Model model){
-        model.addAttribute("authorized", true);
-        return "index";
-    }
-    /*public ResponseEntity<String> helloUser() {
+    public ResponseEntity<String> helloUser() {
         final JwtAuthentication authInfo = authService.getAuthInfo();
         return ResponseEntity.ok("Hello user " + authInfo.getPrincipal() + "!");
-    }*/
+    }
 
 }

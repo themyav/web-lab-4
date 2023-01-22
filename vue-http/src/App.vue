@@ -50,6 +50,7 @@ export default {
     showContent : function (token, login){
       this.accessToken = token;
       this.login = login;
+      console.log("I have got : " + this.login, this.accessToken);
       this.authorized = true;
     }
   }

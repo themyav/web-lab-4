@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(
                         authz -> authz
-                                //.requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/", "/js/*.js", "/js/pages/App.vue", "/favicon.ico").permitAll()
+                                //.requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/", "/js/*.js", "/js/pages/App.vue", "/favicon.ico").permitAll() //TODO вернуть правильные настройки
                                 .anyRequest().permitAll()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
