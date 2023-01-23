@@ -85,8 +85,11 @@ export default {
 
         this.accessToken = response.data.accessToken;
         this.refreshToken = response.data.refreshToken;
+        this.authorized = true;
+        this.$emit('onRegistrated', this.accessToken, this.login)
+      }
 
-        let token = 'Bearer ' + this.accessToken;
+        /*let token = 'Bearer ' + this.accessToken;
         axios.get('http://localhost:8081/api/hello/user', {
           headers: {
             'Authorization': token,
@@ -100,7 +103,7 @@ export default {
             response => {
               console.log("wrong!", response);
             });
-      } else this.length = "Ошибка входа";
+      } else this.length = "Ошибка входа";*/
     },
     saveUser: function (login, password) {
       this.login = login;

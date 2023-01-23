@@ -6,7 +6,7 @@
     <p>Бернятцкая Кристина, вариант XXXXXX</p>
     <p>Текущее время: {{ time }}</p>
   </header>
-  <div v-if="!this.authorized"><enter-form @onRegistrated="showContent"/></div>
+  <div v-if="!this.authorized"><enter-form @onRegistrated="showContent" @onExit="unauthorize"/></div>
   <div v-else-if="this.authorized"><points-list :token="accessToken" :user="login"/></div>
   </div>
 </template>
@@ -52,6 +52,9 @@ export default {
       this.login = login;
       console.log("I have got : " + this.login, this.accessToken);
       this.authorized = true;
+    },
+    unauthorize : function (){
+      this.authorized = false;
     }
   }
 };

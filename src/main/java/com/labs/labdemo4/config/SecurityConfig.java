@@ -4,6 +4,7 @@ import com.labs.labdemo4.filter.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +29,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(
                         authz -> authz
+                                .requestMatchers(HttpMethod.OPTIONS, "/**")
+                                .permitAll()
                                 .requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/").permitAll() //TODO вернуть правильные настройки
                                 .anyRequest().authenticated()
                                 .and()

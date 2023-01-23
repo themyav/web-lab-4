@@ -19,7 +19,7 @@ public class HelloController {
     private final AuthService authService;
 
     //@PreAuthorize("hasAuthority('USER')")
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin
     @GetMapping("hello/user")
     public ResponseEntity<String> helloUser() {
         final JwtAuthentication authInfo = authService.getAuthInfo();

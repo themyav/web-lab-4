@@ -27,6 +27,10 @@ export default {
     PointRow,
     PointForm
   },
+  beforeCreate() {
+    /*console.log("destroy", this.token);
+    this.$emit('onExit');*/
+  },
   created: function () {
     let token = 'Bearer ' + this.token;
     console.log("going to send " + token);

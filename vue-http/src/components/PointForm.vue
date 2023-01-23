@@ -53,6 +53,7 @@ export default {
       //add method to validate values
       this.save();
     },
+    //отправка запроса для точки
     save: function () {
       console.log(this.x, this.y, this.r);
       let point = {
@@ -74,7 +75,6 @@ export default {
           console.log("put " + result.data + " to points")
           console.log(result);
           this.$emit('onPointAdd', result.data);
-          //this.pointsDraw.push(data);
         }, () => {
         console.log("error!");
       });
