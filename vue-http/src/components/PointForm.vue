@@ -47,7 +47,7 @@ export default {
       }
     },
     changeR: function (e) {
-      console.log(e.target.value);
+      //console.log(e.target.value);
       this.draw(e.target.value);
     },
     validate: function () {
@@ -56,10 +56,10 @@ export default {
     },
     //отправка запроса для точки
     save: function (currentToken=this.token) {
-      console.log("current token is : ", currentToken);
+      //console.log("current token is : ", currentToken);
       //передаем токен, чтобы он при необходимости был обновленный
       //this.token = currentToken;
-      console.log(this.x, this.y, this.r);
+      //console.log(this.x, this.y, this.r);
       let point = {
         x: parseInt(this.x),
         y: parseInt(this.y),
@@ -76,8 +76,8 @@ export default {
             }
           }
       ).then(result => {
-          console.log("put " + result.data + " to points")
-          console.log(result);
+          //console.log("put " + result.data + " to points")
+          //console.log(result);
           this.$emit('onPointAdd', result.data);
         }, () => {
         console.log("error! token " + currentToken + " is invalid");

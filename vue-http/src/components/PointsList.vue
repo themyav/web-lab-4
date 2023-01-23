@@ -44,15 +44,6 @@ export default {
           //this.token = this.refresh;
         }
     )
-    /*let token = 'Bearer ' + this.token;
-    console.log("going to send " + token);
-    axios.get('http://localhost:8081/point/' + this.user + '/points', {
-      headers: {
-        'Authorization': token
-      }
-    }).then(response =>
-            response.data.forEach(point => this.points.push(point))
-    )*/
   },
   methods: {
     refreshTokens : function (isPointAdded=true){
@@ -60,11 +51,11 @@ export default {
         refreshToken : this.refresh
       };
       axios.post('http://localhost:8081/api/auth/token', data).then(result => {
-        console.log("before event token was ", this.token);
+        //console.log("before event token was ", this.token);
         this.$emit('refreshEvent', result.data.accessToken);
         this.token = result.data.accessToken;
-        console.log("after event token became ", this.token)
-        console.log("refreshed succesfully");
+        //console.log("after event token became ", this.token)
+        //console.log("refreshed succesfully");
         if(isPointAdded) this.$refs.Form.save(this.token);
         else this.del();
       }, () =>{
@@ -73,7 +64,7 @@ export default {
     },
     getPoints: function (){
       let token = 'Bearer ' + this.token;
-      console.log("going to send " + token);
+      //console.log("going to send " + token);
       return axios.get('http://localhost:8081/point/' + this.user + '/points', {
         headers: {
           'Authorization': token
@@ -81,7 +72,7 @@ export default {
       });
     },
     del: function () {
-      console.log(this.token);
+      //console.log(this.token);
       let token = 'Bearer ' + this.token;
       axios.delete('http://localhost:8081/point', {
         headers: {

@@ -52,15 +52,15 @@ export default {
       this.accessToken = access;
       this.refreshToken = refresh;
       this.login = login;
-      console.log(access);
-      console.log(refresh);
-      console.log("I have got : " + this.login);
+      //console.log(access);
+      //console.log(refresh);
+      //console.log("I have got : " + this.login);
       this.authorized = true;
     },
     refreshEvent : function (access){
         this.accessToken = access;
-        console.log("Now my values is : ", access);
-        console.log("refresh event is happening")
+        //console.log("Now my values is : ", access);
+        //console.log("refresh event is happening")
 
     }
   }

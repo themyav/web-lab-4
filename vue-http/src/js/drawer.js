@@ -125,12 +125,12 @@ export default {
 
             let x_pos = e.pageX - document.getElementById('graph').offsetLeft;
             let y_pos = e.pageY - document.getElementById('graph').offsetTop;
-            console.log("you clicked to cord ", x_pos, y_pos, R);
+            //console.log("you clicked to cord ", x_pos, y_pos, R);
             let zero_x = document.getElementById('graph').offsetWidth / 2;
             let zero_y = document.getElementById('graph').offsetHeight / 2;
 
             let y_cord = -1 * (y_pos - zero_y), x_cord = (x_pos - zero_x);
-            console.log("you put point in ", x_cord, y_cord, R);
+            //console.log("you put point in ", x_cord, y_cord, R);
 
             //non-rounded coordinates
             x_cord = x_cord / width * this.SCALE;
