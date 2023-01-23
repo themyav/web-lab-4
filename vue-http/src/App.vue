@@ -72,6 +72,8 @@ export default {
   font-family: 'Nunito', sans-serif;
   max-width: 500px;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 header{
 }

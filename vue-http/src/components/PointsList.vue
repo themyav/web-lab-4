@@ -2,6 +2,14 @@
   <div id="point_list" v-if="loaded">
     <point-form :points="points" :pointAttr="point" :token="token" :user="user" @onPointAdd="add" @refreshEvent="refreshTokens" ref="Form"/>
     <table>
+      <tr>
+        <th>X</th>
+        <th>Y</th>
+        <th>R</th>
+        <th>Результат</th>
+        <th>Время работы</th>
+        <th>Дата</th>
+      </tr>
       <point-row v-for="point in points" :key="point.id" :point="point" :points="points"/>
     </table>
     <button @click="del">Очистить таблицу</button>
@@ -90,7 +98,7 @@ export default {
       )
     },
     add : function (point){
-        this.points.push(point);
+        this.points.unshift(point);
     }
   }
 }
@@ -103,9 +111,25 @@ table {
   border-style: hidden; /* hide standard table (collapsed) border */
   box-shadow: 0 0 0 2px #666; /* this draws the table border  */
   margin: auto;
+  width: 100%
 }
 
-td {
+td{
   border: 2px solid #ccc;
 }
+
+th{
+  border: 1px solid grey;
+  background-color: #6e00b3;
+  text-align: center;
+  color: white;
+}
+
+tr:nth-child(2) td{
+  background-color: lightyellow;
+}
+tr:hover{
+  background-color: lavender;
+}
+
 </style>
