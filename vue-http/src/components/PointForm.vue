@@ -81,3 +81,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+div{
+  background-color: #fff001;
+  border-radius: 5px;
+}
+canvas{
+  border-radius: 5px;
+  margin: 10px;
+}
+</style>

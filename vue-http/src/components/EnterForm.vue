@@ -1,11 +1,14 @@
 <template>
   <div>
     <h3>Войдите или зарегестрируйтесь</h3>
+
+    <div id="enter_form">
     <label for="login">Логин</label>
-    <input type="text" id="login" maxlength="15" v-model="login"/><br>
+    <input type="text" id="login" maxlength="15" placeholder="Введите логин"
+           title="Введите логин не длинее 15 символов" v-model="login"/><br>
 
     <label for="password">Пароль</label>
-    <input type="password" id="password" maxlength="15" v-model="password"/><br>
+    <input type="password" id="password" maxlength="15" placeholder="Введите пароль" v-model="password"/><br>
 
     <div v-if="!this.registration">
       <button id="enter" @click="validateEnter">Войти</button>
@@ -18,7 +21,8 @@
       <button id="register" @click="validateRegistration">Зарегистрироваться</button>
     </div>
 
-    <p>{{ message }}</p></div>
+    </div>
+  <p>{{ message }}</p></div>
 </template>
 
 <script>
@@ -142,3 +146,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div#enter_form{
+  background-color: #fff001;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+p{
+  color: #6e00b3;
+  font-weight: bold;
+}
+title{
+  color: red;
+}
+</style>

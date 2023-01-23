@@ -2,7 +2,7 @@
 <template>
   <div>
   <header>
-    <h3>Лабораторная работа №4</h3>
+    <h3>Laboratornaya работа №4</h3>
     <p>Бернятцкая Кристина, вариант XXXXXX</p>
     <p>Текущее время: {{ time }}</p>
   </header>
@@ -56,3 +56,42 @@ export default {
   }
 };
 </script>
+
+<style>
+#app{
+  font-family: 'Nunito', sans-serif;
+  max-width: 500px;
+  text-align: center;
+}
+header{
+}
+button{
+  background-color: #b945ee;
+  border: 0;
+  margin: 10px;
+  height: 30px;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: 'Nunito', sans-serif;
+
+}
+h3{
+  color: #6e00b3
+}
+input{
+  border-radius: 5px;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #6e00b3;
+  font-family: 'Nunito', sans-serif;
+}
+label{
+  display: block;
+  font-weight: bold;
+  color: #020530;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+</style>

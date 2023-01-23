@@ -16,7 +16,7 @@ export default {
                 return y >= -2 * x - R;
             } else return false;
         }, drawPoint: function (x, y, text, ctx, good = true) {
-            if (good) ctx.fillStyle = 'green'; else ctx.fillStyle = 'red'
+            if (good) ctx.fillStyle = 'black'; else ctx.fillStyle = 'red'
             ctx.beginPath();
             ctx.arc(x, y, 2, 0, 2 * Math.PI, true);
             ctx.fill();
@@ -62,8 +62,8 @@ export default {
             this.ctx.fillStyle = 'white';
             this.ctx.fillRect(0, 0, width, height);
 
-            this.ctx.fillStyle = '#89CFF0';
-            this.ctx.strokeStyle = 'blue';
+            this.ctx.fillStyle = '#b945ee';
+            this.ctx.strokeStyle = '#6e00b3';
             this.ctx.font = '12px serif';
 
             this.ctx.beginPath(); //I

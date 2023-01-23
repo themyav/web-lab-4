@@ -1,5 +1,4 @@
 <template>
-  <div>
     <tr>
       <td>{{ point.x }}</td>
       <td>{{ point.y }}</td>
@@ -8,8 +7,6 @@
       <td>{{ point.time }}</td>
       <td>{{ point.creationDate }}</td>
     </tr>
-  </div>
-
 </template>
 
 <script>

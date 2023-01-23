@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="point_list">
     <point-form :points="points" :pointAttr="point" :token="token" :user="user" @onPointAdd="add"/>
     <table>
       <point-row v-for="point in points" :key="point.id" :point="point" :points="points"/>
@@ -59,6 +59,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  border-style: hidden; /* hide standard table (collapsed) border */
+  box-shadow: 0 0 0 2px #666; /* this draws the table border  */
+}
 
+td {
+  border: 2px solid #ccc;
+}
 </style>
