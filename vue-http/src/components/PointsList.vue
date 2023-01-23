@@ -23,7 +23,8 @@ export default {
       point: null,
       points: [],
       loaded : true,
-      token : ''
+      token : '',
+      refreshed : false
     }
   },
   components : {
@@ -39,6 +40,7 @@ export default {
 
         () =>{
           console.log("can't get points...");
+          this.loaded = false;
           //this.token = this.refresh;
         }
     )
@@ -53,7 +55,7 @@ export default {
     )*/
   },
   methods: {
-    refreshTokens : function (){
+    refreshTokens : function (isPointAdded=true){
       let data = {
         refreshToken : this.refresh
       };
@@ -63,7 +65,8 @@ export default {
         this.token = result.data.accessToken;
         console.log("after event token became ", this.token)
         console.log("refreshed succesfully");
-        this.$refs.Form.save(this.token);
+        if(isPointAdded) this.$refs.Form.save(this.token);
+        else this.del();
       }, () =>{
         console.log("error!");
       })
@@ -87,8 +90,11 @@ export default {
       }).then(() => {
             while (this.points.length > 0) this.points.pop();
           }, () => {
-            console.log("Error!");
-            this.loaded = false;
+            if(!this.refreshed){
+              this.refreshed = true;
+              this.refreshTokens(false);
+            }
+            else console.log("Error!");
           }
       )
     },
