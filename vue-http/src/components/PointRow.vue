@@ -1,8 +1,8 @@
 <template>
     <tr>
-      <td>{{ point.x }}</td>
-      <td>{{ point.y }}</td>
-      <td>{{ point.r }}</td>
+      <td>{{ point.x.toFixed(3) }}</td>
+      <td>{{ point.y.toFixed(3) }}</td>
+      <td>{{ point.r.toFixed(3) }}</td>
       <td>{{ point.result }}</td>
       <td>{{ point.time }}</td>
       <td>{{ point.creationDate }}</td>

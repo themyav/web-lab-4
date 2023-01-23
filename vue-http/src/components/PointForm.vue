@@ -41,6 +41,7 @@ export default {
     processGraphClick: function (e) {
       let values = this.processClick(e, this.r)
       if (values !== null) {
+        console.log(values[0], values[1])
         this.x = values[0];
         this.y = values[1];
         this.save();
@@ -61,9 +62,9 @@ export default {
       //this.token = currentToken;
       //console.log(this.x, this.y, this.r);
       let point = {
-        x: parseInt(this.x),
-        y: parseInt(this.y),
-        r: parseInt(this.r),
+        x: parseFloat(this.x),
+        y: parseFloat(this.y),
+        r: parseFloat(this.r),
         login: this.user.toString()
       };
       let token = 'Bearer ' + currentToken;

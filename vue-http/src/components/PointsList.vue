@@ -44,7 +44,8 @@ export default {
     this.token = this.access;
     let response = this.getPoints();
     response.then(response =>{
-        response.data.forEach(point => this.points.push(point))},
+        response.data.forEach(point => this.points.unshift(point))
+        },
 
         () =>{
           console.log("can't get points...");

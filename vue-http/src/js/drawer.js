@@ -136,7 +136,7 @@ export default {
             x_cord = x_cord / width * this.SCALE;
             y_cord = y_cord / height * this.SCALE;
 
-            //round coordinates
+            //4 digits after point
             let x_val = x_cord.toFixed(this.fraction);
             let y_val = y_cord.toFixed(this.fraction);
 
@@ -149,7 +149,7 @@ export default {
             let good = this.areaCheck(x_val, y_val, R);
             this.pointsDraw.push([x_pos, y_pos, R, good])
             this.drawPoint(x_pos, y_pos, '', this.ctx, good);
-            return [x_cord, y_cord];
+            return [x_val, y_val];
 
         }
 
