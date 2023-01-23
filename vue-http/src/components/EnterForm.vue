@@ -86,7 +86,7 @@ export default {
         this.accessToken = response.data.accessToken;
         this.refreshToken = response.data.refreshToken;
         this.authorized = true;
-        this.$emit('onRegistrated', this.accessToken, this.login)
+        this.$emit('onRegistrated', this.accessToken, this.refreshToken, this.login)
       }
 
         /*let token = 'Bearer ' + this.accessToken;
@@ -153,7 +153,7 @@ export default {
 <style scoped>
 div#enter_form{
   background-color: #fff001;
-  border-radius: 5px;
+  border-radius: 25px 5px 25px 5px;
   padding-top: 5px;
   padding-bottom: 5px;
 }

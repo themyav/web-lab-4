@@ -28,7 +28,8 @@ export default {
       y: 0,
       r: 0,
       text: '',
-      id: ''
+      id: '',
+      refreshed : false
     }
   },
   mounted() {
@@ -50,11 +51,14 @@ export default {
       this.draw(e.target.value);
     },
     validate: function () {
-      //add method to validate values
+      // TODO add method to validate values
       this.save();
     },
     //отправка запроса для точки
-    save: function () {
+    save: function (currentToken=this.token) {
+      console.log("current token is : ", currentToken);
+      //передаем токен, чтобы он при необходимости был обновленный
+      //this.token = currentToken;
       console.log(this.x, this.y, this.r);
       let point = {
         x: parseInt(this.x),
@@ -62,7 +66,7 @@ export default {
         r: parseInt(this.r),
         login: this.user.toString()
       };
-      let token = 'Bearer ' + this.token;
+      let token = 'Bearer ' + currentToken;
       console.log(token);
       axios.post('http://localhost:8081/point',
           point,
@@ -76,7 +80,11 @@ export default {
           console.log(result);
           this.$emit('onPointAdd', result.data);
         }, () => {
-        console.log("error!");
+        console.log("error! token " + currentToken + " is invalid");
+        if(!this.refreshed){
+          this.refreshed = true;
+          this.$emit('refreshEvent');
+        }
       });
     }
   }

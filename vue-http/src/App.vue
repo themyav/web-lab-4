@@ -2,12 +2,12 @@
 <template>
   <div>
   <header>
-    <h3>Laboratornaya работа №4</h3>
+    <h2>Лабораторная работа 4</h2>
     <p>Бернятцкая Кристина, вариант XXXXXX</p>
     <p>Текущее время: {{ time }}</p>
   </header>
-  <div v-if="!this.authorized"><enter-form @onRegistrated="showContent" @onExit="unauthorize"/></div>
-  <div v-else-if="this.authorized"><points-list :token="accessToken" :user="login"/></div>
+  <div v-if="!this.authorized"><enter-form @onRegistrated="showContent"/></div>
+  <div v-else-if="this.authorized"><points-list :access="accessToken" :refresh="refreshToken" :user="login" @refreshEvent="refreshEvent"/></div>
   </div>
 </template>
 
@@ -23,6 +23,7 @@ export default {
       time: "",
       authorized: false,
       accessToken : "",
+      refreshToken: "",
       login : ""
     };
   },
@@ -47,14 +48,20 @@ export default {
     checkTime : function (i){
       return (i < 10) ? "0" + i : i;
     },
-    showContent : function (token, login){
-      this.accessToken = token;
+    showContent : function (access, refresh, login){
+      this.accessToken = access;
+      this.refreshToken = refresh;
       this.login = login;
-      console.log("I have got : " + this.login, this.accessToken);
+      console.log(access);
+      console.log(refresh);
+      console.log("I have got : " + this.login);
       this.authorized = true;
     },
-    unauthorize : function (){
-      this.authorized = false;
+    refreshEvent : function (access){
+        this.accessToken = access;
+        console.log("Now my values is : ", access);
+        console.log("refresh event is happening")
+
     }
   }
 };
@@ -73,16 +80,22 @@ button{
   border: 0;
   margin: 10px;
   height: 30px;
-  font-size: 20px;
-  border-radius: 5px;
+  font-size: 18px;
+  border-radius: 15px 5px 15px 5px;
   font-family: 'Nunito', sans-serif;
-
+  font-weight: bold;
+  color: white;
 }
-h3{
-  color: #6e00b3
+button:hover{
+  background-color: #b945ee;
+}
+h2{
+  color: #6e00b3;
+  font-family : 'Caveat', 'sans-serif';
+  font-size: 40px
 }
 input{
-  border-radius: 5px;
+  border-radius: 15px 5px 15px 5px;
   height: 30px;
   font-size: 20px;
   font-weight: bold;
@@ -92,9 +105,10 @@ input{
 label{
   display: block;
   font-weight: bold;
-  color: #020530;
+  color: #6e00b3;
   margin-top: 10px;
-  margin-bottom: 10px;
+  font-family: 'Caveat', sans-serif;
+  font-size: 25px;
 
 }
 </style>

@@ -1,11 +1,12 @@
 <template>
-  <div id="point_list">
-    <point-form :points="points" :pointAttr="point" :token="token" :user="user" @onPointAdd="add"/>
+  <div id="point_list" v-if="loaded">
+    <point-form :points="points" :pointAttr="point" :token="token" :user="user" @onPointAdd="add" @refreshEvent="refreshTokens" ref="Form"/>
     <table>
       <point-row v-for="point in points" :key="point.id" :point="point" :points="points"/>
     </table>
     <button @click="del">Очистить таблицу</button>
   </div>
+  <div v-else><p>Доступ запрещен!</p></div>
 
 </template>
 
@@ -16,23 +17,32 @@ import PointForm from "@/components/PointForm.vue";
 import PointRow from "@/components/PointRow.vue";
 
 export default {
-  props: ['content', 'token', 'user'],
+  props: ['content', 'access', 'refresh','user'],
   data: function () {
     return {
       point: null,
-      points: []
+      points: [],
+      loaded : true,
+      token : ''
     }
   },
   components : {
     PointRow,
     PointForm
   },
-  beforeCreate() {
-    /*console.log("destroy", this.token);
-    this.$emit('onExit');*/
-  },
   created: function () {
-    let token = 'Bearer ' + this.token;
+    console.log('my access is ', this.access)
+    this.token = this.access;
+    let response = this.getPoints();
+    response.then(response =>{
+        response.data.forEach(point => this.points.push(point))},
+
+        () =>{
+          console.log("can't get points...");
+          //this.token = this.refresh;
+        }
+    )
+    /*let token = 'Bearer ' + this.token;
     console.log("going to send " + token);
     axios.get('http://localhost:8081/point/' + this.user + '/points', {
       headers: {
@@ -40,10 +50,35 @@ export default {
       }
     }).then(response =>
             response.data.forEach(point => this.points.push(point))
-    )
+    )*/
   },
   methods: {
+    refreshTokens : function (){
+      let data = {
+        refreshToken : this.refresh
+      };
+      axios.post('http://localhost:8081/api/auth/token', data).then(result => {
+        console.log("before event token was ", this.token);
+        this.$emit('refreshEvent', result.data.accessToken);
+        this.token = result.data.accessToken;
+        console.log("after event token became ", this.token)
+        console.log("refreshed succesfully");
+        this.$refs.Form.save(this.token);
+      }, () =>{
+        console.log("error!");
+      })
+    },
+    getPoints: function (){
+      let token = 'Bearer ' + this.token;
+      console.log("going to send " + token);
+      return axios.get('http://localhost:8081/point/' + this.user + '/points', {
+        headers: {
+          'Authorization': token
+        }
+      });
+    },
     del: function () {
+      console.log(this.token);
       let token = 'Bearer ' + this.token;
       axios.delete('http://localhost:8081/point', {
         headers: {
@@ -53,6 +88,7 @@ export default {
             while (this.points.length > 0) this.points.pop();
           }, () => {
             console.log("Error!");
+            this.loaded = false;
           }
       )
     },
@@ -69,6 +105,7 @@ table {
   border-radius: 10px;
   border-style: hidden; /* hide standard table (collapsed) border */
   box-shadow: 0 0 0 2px #666; /* this draws the table border  */
+  margin: auto;
 }
 
 td {
