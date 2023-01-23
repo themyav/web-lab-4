@@ -121,13 +121,16 @@ export default {
       if (this.validateData()) {
         console.log(this.password.length, this.login.length);
         let response = this.saveUser(this.login, this.password, false);
-        response.then(result => {
-          console.log(result.status);
+        response.then(() => {
+          //console.log(result.response.status);
           this.message = "Пользователь с таким логином уже есть";
         }, result => {
-          if (result.status === 404) this.createNewUser();
-          else if (result.status === 403) this.message = "Пользователь с таким логином уже есть";
-          else this.message = "Невозможно создать пользователя";
+          if (result.response.status === 404) this.createNewUser();
+          else if (result.response.status === 403) this.message = "Пользователь с таким логином уже есть";
+          else {
+            console.log(result);
+            this.message = "Невозможно создать пользователя";
+          }
         });
       }
     },
@@ -139,9 +142,9 @@ export default {
           console.log(result.data);
           this.authorize(result);
         }, result => {
-          console.log(result.status);
-          if (result.status === 404) this.message = "Пользователь с такими логином не найден!";
-          else if (result.status === 403) this.message = "Неверное имя пользователя или пароль!";
+          console.log(result.response.status);
+          if (result.response.status === 404) this.message = "Пользователь с такими логином не найден!";
+          else if (result.response.status === 403) this.message = "Неверное имя пользователя или пароль!";
           else this.message = "Доступ к сайту запрещен!";
         });
       }
