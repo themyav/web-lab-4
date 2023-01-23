@@ -72,6 +72,7 @@ export default {
           }
       ).then(result => {
           console.log("put " + result.data + " to points")
+          console.log(result);
           this.$emit('onPointAdd', result.data);
           //this.pointsDraw.push(data);
         }, () => {

@@ -23,6 +23,7 @@ public class HelloController {
     @GetMapping("hello/user")
     public ResponseEntity<String> helloUser() {
         final JwtAuthentication authInfo = authService.getAuthInfo();
+        //System.out.println(authInfo);
         return ResponseEntity.ok("Hello user " + authInfo.getPrincipal() + "!");
     }
 
