@@ -156,7 +156,7 @@ export default {
 <style scoped>
 div#enter_form{
   background-color: #fff001;
-  border-radius: 25px 5px 25px 5px;
+  border-radius: 30px 10px 30px 10px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -166,5 +166,8 @@ p{
 }
 title{
   color: red;
+}
+input{
+  user-select: none;
 }
 </style>

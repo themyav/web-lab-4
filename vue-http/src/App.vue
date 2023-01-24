@@ -3,8 +3,8 @@
   <div>
   <header>
     <h2>Лабораторная работа 4</h2>
-    <p>Бернятцкая Кристина, вариант XXXXXX</p>
-    <p>Текущее время: {{ time }}</p>
+    <p>Бернятцкая Кристина, вариант <span>99283</span></p>
+    <p>Текущее время: <span>{{ time }}</span></p>
   </header>
   <div v-if="!this.authorized"><enter-form @onRegistrated="showContent"/></div>
   <div v-else-if="this.authorized"><points-list :access="accessToken" :refresh="refreshToken" :user="login" @refreshEvent="refreshEvent"/></div>
@@ -89,19 +89,22 @@ button{
   color: white;
 }
 button:hover{
-  background-color: #b945ee;
+  background-color: #6e00b3;
 }
 h2{
   color: #6e00b3;
   font-family : 'Caveat', 'sans-serif';
-  font-size: 40px
+  font-size: 45px;
+  margin-bottom : 0
+}
+h3{
+  margin-bottom: 0;
 }
 input{
   border-radius: 15px 5px 15px 5px;
   height: 30px;
   font-size: 20px;
   font-weight: bold;
-  color: #6e00b3;
   font-family: 'Nunito', sans-serif;
 }
 label{
@@ -111,6 +114,18 @@ label{
   margin-top: 10px;
   font-family: 'Caveat', sans-serif;
   font-size: 25px;
+}
+p{
+  margin: 0;
+  color: #6e00b3;
+  font-weight: bold;
+}
+</style>
 
+<style scoped>
+span{
+  background-color: white;
+  font-size: 25px;
+  font-family: 'Caveat', sans-serif;
 }
 </style>
