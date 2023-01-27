@@ -109,6 +109,8 @@ export default {
 
 
         }, restoreCanvas: function (R = 1, withPoints = true) {
+            this.canvas = document.querySelector('#graph');
+            this.ctx = this.canvas.getContext('2d');
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.draw(R, withPoints);
         }, checkValue: function (value, min, max, positive) {

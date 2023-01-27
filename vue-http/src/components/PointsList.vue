@@ -23,9 +23,12 @@
 import axios from 'axios'
 import PointForm from "@/components/PointForm.vue";
 import PointRow from "@/components/PointRow.vue";
+import drawer from "@/js/drawer";
+
 
 export default {
   props: ['content', 'access', 'refresh','user'],
+  mixins: [drawer],
   data: function () {
     return {
       point: null,
@@ -89,6 +92,7 @@ export default {
         }
       }).then(() => {
             while (this.points.length > 0) this.points.pop();
+            this.restoreCanvas(this.$refs.Form.r);
           }, () => {
             if(!this.refreshed){
               this.refreshed = true;
