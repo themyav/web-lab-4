@@ -114,9 +114,12 @@ export default {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.draw(R, withPoints);
         }, checkValue: function (value, min, max, positive) {
-            value = value.replace(",", ".");
-            let ok = (value.search(/^-?\d.?\d{0,5}$/) !== -1 && Number(value) >= min && Number(value) <= max);
+            value = value.toString().replace(",", ".");
+            console.log(value, min, max, positive);
+            let ok = (value.search(/^-?\d.?\d{0,10}$/) !== -1 && Number(value) >= min && Number(value) <= max);
+            console.log(ok, "after eq");
             if (positive && value.search("-") !== -1) ok = false;
+            console.log(ok, "after sign");
             return ok;
         },
 

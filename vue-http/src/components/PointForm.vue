@@ -1,7 +1,7 @@
 <template>
   <div>
     <canvas v-on:click="processGraphClick" id="graph" height="300" width="300"></canvas>
-    <label for="x">Выберите X: </label>
+    <label for="x">Выберите X от -5 до 3 </label>
     <span><input type="radio" name="x" value="-5" v-model="x">-5</span>
     <span><input type="radio" name="x" value="-4" v-model="x"> -4</span>
     <span><input type="radio" name="x" value="-3" v-model="x"> -3</span>
@@ -13,15 +13,20 @@
     <span><input type="radio" name="x" value="3" v-model="x"> 3</span>
 
 
-    <label htmlFor="y">Введите значение Y</label> <input type="text" id="y" v-model="y"/> <br>
-    <label for="r">Выберите R: </label>
-    <span><input type="radio" name="r" value="1" v-model="r" @change="changeR"> 1</span>
-    <span><input type="radio" name="r" value="1" v-model="r" @change="changeR"> 1</span>
-    <span><input type="radio" name="r" value="1" v-model="r" @change="changeR"> 1</span>
+    <label htmlFor="y">Введите значение Y от -5 до 3</label> <input type="text" id="y" v-model="y" @input="replaceValue"/> <br>
+    <label for="r">Выберите R от 0 до 3</label>
+    <span><input type="radio" name="r" value="-5" v-model="r" @change="changeR"> -5</span>
+    <span><input type="radio" name="r" value="-4" v-model="r" @change="changeR"> -4</span>
+    <span><input type="radio" name="r" value="-3" v-model="r" @change="changeR"> -3</span>
+    <span><input type="radio" name="r" value="-2" v-model="r" @change="changeR"> -2</span>
+    <span><input type="radio" name="r" value="-1" v-model="r" @change="changeR"> -1</span>
+    <span><input type="radio" name="r" value="0" v-model="r" @change="changeR"> 0</span>
     <span><input type="radio" name="r" value="1" v-model="r" @change="changeR"> 1</span>
     <span><input type="radio" name="r" value="2" v-model="r" @change="changeR"> 2</span>
     <span><input type="radio" name="r" value="3" v-model="r" @change="changeR"> 3</span><br>
     <button @click="validate">Отправить!</button>
+    <p>{{ errorY }}</p>
+    <p>{{ errorR }}</p>
     <form action="/">
       <button>Вернуться на главную</button>
     </form>
@@ -42,6 +47,8 @@ export default {
       r: 0,
       text: '',
       id: '',
+      errorY : '',
+      errorR : '',
       refreshed: false
     }
   },
@@ -60,13 +67,24 @@ export default {
         this.save();
       }
     },
+    replaceValue: function (e){
+        e.target.value = e.target.value.replace(/[^0-9.,-]/g, '');
+    },
     changeR: function (e) {
-      //console.log(e.target.value);
-      this.draw(e.target.value);
+      console.log("r is changed", this.r)
+      if(e.target.value <= 0) this.errorR = 'Некорректное значение R! Выберите R > 0'
+      else {
+        this.draw(e.target.value);
+        this.errorR = '';
+      }
     },
     validate: function () {
-      // TODO add method to validate values
-      this.save();
+      let isYCorrect = this.checkValue(this.y, this.y_min, this.y_max, false);
+      let isRCorrect = this.checkValue(this.r, 1, 3, true);
+      console.log(isYCorrect, isRCorrect);
+      this.errorY = (isYCorrect ? '' : 'Некорректное значение Y!');
+      this.errorR = (isRCorrect ? '' :'Некорректное значение R! Выберите R > 0');
+      if(isYCorrect && isRCorrect) this.save();
     },
     //отправка запроса для точки
     save: function (currentToken = this.token) {
