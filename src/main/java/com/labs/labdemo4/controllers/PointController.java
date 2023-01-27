@@ -36,8 +36,10 @@ public class PointController {
     }
     @PostMapping
     public Point create(@RequestBody Point point){
+        double currentTime = System.nanoTime();
         point.setCreationDate(LocalDateTime.now());
         point.setResult(isInArea(point.getX(), point.getY(), point.getR()));
+        point.setTime((System.nanoTime() - currentTime) / 1e6);
         return pointRepo.save(point);
     }
 

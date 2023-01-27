@@ -7,7 +7,7 @@
         <th>Y</th>
         <th>R</th>
         <th>Результат</th>
-        <th>Время работы</th>
+        <th>Время работы, c</th>
         <th>Дата</th>
       </tr>
       <point-row v-for="point in points" :key="point.id" :point="point" :points="points"/>
