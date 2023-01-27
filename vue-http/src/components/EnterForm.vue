@@ -70,7 +70,10 @@ export default {
         login: this.login,
         password: this.password
       }
-      axios.post('http://localhost:8081/users/register', user
+      let headers = {
+        "Access-Control-Allow-Origin" : "*"
+      }
+      axios.post('http://localhost:8081/api/user', user, {headers}
       ).then(result => {
         this.message = 'Вы успешно зарегестрированы! Зайдите в аккаунт.';
         this.switchToRegistration();
@@ -88,22 +91,6 @@ export default {
         this.authorized = true;
         this.$emit('onRegistrated', this.accessToken, this.refreshToken, this.login)
       }
-
-        /*let token = 'Bearer ' + this.accessToken;
-        axios.get('http://localhost:8081/api/hello/user', {
-          headers: {
-            'Authorization': token,
-            "Access-Control-Allow-Origin" : "*"
-          }
-        }).then(response => {
-              console.log(response);
-              this.length = "Вы успешно авторизованы!";
-              this.$emit('onRegistrated', this.accessToken, this.login)
-            },
-            response => {
-              console.log("wrong!", response);
-            });
-      } else this.length = "Ошибка входа";*/
     },
     saveUser: function (login, password) {
       this.login = login;

@@ -1,4 +1,4 @@
-package com.labs.labdemo4.service;
+package com.labs.labdemo4.utility;
 
 import com.labs.labdemo4.model.JwtAuthentication;
 import io.jsonwebtoken.Claims;

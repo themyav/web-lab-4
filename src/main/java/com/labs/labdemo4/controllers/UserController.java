@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("api/user")
 @CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
     private final UserRepo userRepo;
@@ -29,20 +29,20 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("register")
+    @PostMapping
     public UserR create(@RequestBody UserR user){
         user.setPassword(AuthService.codePassword(user.getPassword()));
         return userRepo.save(user);
     }
 
-    @PutMapping("{id}")
+    /*@PutMapping("{id}")
     public UserR update(@PathVariable("id") UserR userFromDB, @RequestBody UserR user){
         BeanUtils.copyProperties(user, userFromDB, "id");
         return userRepo.save(userFromDB);
-    }
+    }*/
 
-    @DeleteMapping("{id}")
+    /*@DeleteMapping("{id}")
     public void delete(@PathVariable("id") UserR user){
         userRepo.delete(user);
-    }
+    }*/
 }

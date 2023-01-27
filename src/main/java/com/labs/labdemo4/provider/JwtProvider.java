@@ -1,4 +1,4 @@
-package com.labs.labdemo4.service;
+package com.labs.labdemo4.provider;
 
 import com.labs.labdemo4.model.UserR;
 import io.jsonwebtoken.*;

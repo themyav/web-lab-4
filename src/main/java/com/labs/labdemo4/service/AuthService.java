@@ -6,6 +6,7 @@ import com.labs.labdemo4.model.JwtRequest;
 import com.labs.labdemo4.model.JwtResponse;
 import com.labs.labdemo4.exception.WrongPasswordException;
 import com.labs.labdemo4.model.UserR;
+import com.labs.labdemo4.provider.JwtProvider;
 import io.jsonwebtoken.Claims;
 import jakarta.xml.bind.DatatypeConverter;
 import lombok.NonNull;

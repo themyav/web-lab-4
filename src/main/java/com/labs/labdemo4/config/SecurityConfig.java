@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -31,7 +30,8 @@ public class SecurityConfig {
                         authz -> authz
                                 .requestMatchers(HttpMethod.OPTIONS, "/**")
                                 .permitAll()
-                                .requestMatchers("/api/auth/login", "/api/auth/token", "/users/register", "/").permitAll() //TODO вернуть правильные настройки
+                                .requestMatchers("/api/auth/login", "/api/auth/token", "/").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/user").permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)

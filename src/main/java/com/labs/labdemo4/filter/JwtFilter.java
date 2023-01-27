@@ -1,7 +1,7 @@
 package com.labs.labdemo4.filter;
 
-import com.labs.labdemo4.service.JwtProvider;
-import com.labs.labdemo4.service.JwtUtils;
+import com.labs.labdemo4.provider.JwtProvider;
+import com.labs.labdemo4.utility.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

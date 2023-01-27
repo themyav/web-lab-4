@@ -100,7 +100,7 @@ export default {
       };
       let token = 'Bearer ' + currentToken;
       console.log(token);
-      axios.post('http://localhost:8081/point',
+      axios.post('http://localhost:8081/api/point',
           point,
           {
             headers: {

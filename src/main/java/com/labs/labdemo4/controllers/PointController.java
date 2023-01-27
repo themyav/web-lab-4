@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.labs.labdemo4.utility.PointUtils.isInArea;
+import static com.labs.labdemo4.utility.PointUtils.isValid;
+
 @RestController
-@RequestMapping("point")
+@RequestMapping("api/point")
 @CrossOrigin
 public class PointController {
     private final PointRepo pointRepo;
@@ -25,17 +28,14 @@ public class PointController {
     public List<Point> list(){
         return pointRepo.findAll();
     }
-    @GetMapping("{id}")
-    public Point getOne(@PathVariable("id") Point point){
-        return point;
-    }
 
-    @GetMapping("{user}/points")
+    @GetMapping("{user}")
     public List<Point> findByLogin(@PathVariable("user") String login) {
         return pointRepo.findByLogin(login);
     }
     @PostMapping
     public Point create(@RequestBody Point point){
+        if(!isValid(point)) return null; //is okay?
         double currentTime = System.nanoTime();
         point.setCreationDate(LocalDateTime.now());
         point.setResult(isInArea(point.getX(), point.getY(), point.getR()));
@@ -43,27 +43,16 @@ public class PointController {
         return pointRepo.save(point);
     }
 
-    @PutMapping("{id}")
+    /*@PutMapping("{id}")
     public Point update(@PathVariable("id") Point pointFromDB, @RequestBody Point point){
         BeanUtils.copyProperties(point, pointFromDB, "id");
         return pointRepo.save(pointFromDB);
-    }
+    }*/
 
     @DeleteMapping
     public void delete(){
         pointRepo.deleteAll();
     }
 
-    public boolean isInArea(double x, double y, double r){
-        if(x >= 0 && y >= 0){
-            return x <= r && y <= r;
-        }
-        else if(x <= 0 && y >= 0){
-            return x*x + y*y <= r*r/4;
-        }
-        else if(x <= 0 && y <= 0){
-            return y >= -2*x - r;
-        }
-        else return false;
-    }
+
 }

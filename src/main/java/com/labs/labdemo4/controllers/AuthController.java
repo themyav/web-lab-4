@@ -36,11 +36,11 @@ public class AuthController {
         final JwtResponse token = authService.getAccessToken(request.getRefreshToken());
         return ResponseEntity.ok(token);
     }
-    @CrossOrigin(origins = "http://localhost:8080")
+    /*@CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("refresh")
     public ResponseEntity<JwtResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) {
         final JwtResponse token = authService.refresh(request.getRefreshToken());
         return ResponseEntity.ok(token);
-    }
+    }*/
 
 }

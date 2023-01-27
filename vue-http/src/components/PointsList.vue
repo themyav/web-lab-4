@@ -77,7 +77,7 @@ export default {
     getPoints: function (){
       let token = 'Bearer ' + this.token;
       //console.log("going to send " + token);
-      return axios.get('http://localhost:8081/point/' + this.user + '/points', {
+      return axios.get('http://localhost:8081/api/point/' + this.user, {
         headers: {
           'Authorization': token
         }
@@ -86,7 +86,7 @@ export default {
     del: function () {
       //console.log(this.token);
       let token = 'Bearer ' + this.token;
-      axios.delete('http://localhost:8081/point', {
+      axios.delete('http://localhost:8081/api/point', {
         headers: {
           'Authorization': token
         }
