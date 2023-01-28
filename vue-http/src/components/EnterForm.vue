@@ -3,13 +3,13 @@
     <h3>Войдите или зарегестрируйтесь</h3>
 
     <div id="enter_form">
-    <label for="login">Логин</label><br/>
+    <label for="login">Логин</label>
     <input type="text" id="login" maxlength="15" placeholder="Введите логин"
-           title="Введите логин не длинее 15 символов" v-model="login"/><br>
+           title="Введите логин не длинее 15 символов" v-model="login" @input="validateLength"/><br>
 
      <div>
-       <label for="password">Пароль</label><br/>
-       <input type="password" id="password" maxlength="15" placeholder="Введите пароль" v-model="password"/>
+       <label for="password">Пароль</label>
+       <input type="password" id="password" maxlength="15" placeholder="Введите пароль" @input="validateLength" v-model="password" />
        <button class="show_button" @click="showPassword"><img id="passwordImage" src="../../public/hide.png" width="40" height="40"/></button><br/>
      </div>
 
@@ -79,8 +79,23 @@ export default {
     switchToRegistration : function(){
       this.registration = !this.registration;
     },
+    isLengthValid : function (length){
+      return length >= 4 && length <= 15;
+    },
+    validateLength : function (e){
+      console.log(e.target.value.length);
+      if(!this.isLengthValid(e.target.value.length)){
+        this.message = 'Длина логина и пароля должна быть от 4 до 15 символов';
+        e.target.style.backgroundColor = 'pink';
+      }
+      else {
+        this.message = '';
+        e.target.style.backgroundColor = 'white';
+      }
+    },
     validateData: function () {
       if (this.password.length !== 0 && this.login.length !== 0) {
+        if(!this.isLengthValid(this.password.length) || !this.isLengthValid(this.login.length)) return false;
         this.message = "";
         document.getElementById("login").style.backgroundColor = 'white';
         document.getElementById("password").style.backgroundColor = 'white';
@@ -187,6 +202,9 @@ title{
 }
 input{
   user-select: none;
+}
+label{
+  margin-top: 10px;
 }
 div{
   position: relative;
