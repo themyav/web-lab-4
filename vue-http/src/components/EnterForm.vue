@@ -89,7 +89,7 @@ export default {
         e.target.style.backgroundColor = 'pink';
       }
       else {
-        this.message = '';
+        if(this.isLengthValid(this.password.length) && this.isLengthValid(this.login.length)) this.message = '';
         e.target.style.backgroundColor = 'white';
       }
     },
