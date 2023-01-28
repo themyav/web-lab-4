@@ -14,7 +14,7 @@
 
 
     <label htmlFor="y">Введите значение Y от -5 до 3</label> <input type="text" id="y" v-model="y" @input="replaceValue"/> <br>
-    <label for="r">Выберите R от 0 до 3</label>
+    <label for="r">Выберите R от 1 до 3</label>
     <span><input type="radio" name="r" value="-5" v-model="r" @change="changeR"> -5</span>
     <span><input type="radio" name="r" value="-4" v-model="r" @change="changeR"> -4</span>
     <span><input type="radio" name="r" value="-3" v-model="r" @change="changeR"> -3</span>
@@ -27,9 +27,6 @@
     <button @click="validate">Отправить!</button>
     <p>{{ errorY }}</p>
     <p>{{ errorR }}</p>
-    <form action="/">
-      <button>Вернуться на главную</button>
-    </form>
   </div>
 </template>
 
@@ -88,10 +85,6 @@ export default {
     },
     //отправка запроса для точки
     save: function (currentToken = this.token) {
-      //console.log("current token is : ", currentToken);
-      //передаем токен, чтобы он при необходимости был обновленный
-      //this.token = currentToken;
-      //console.log(this.x, this.y, this.r);
       let point = {
         x: parseFloat(this.x),
         y: parseFloat(this.y),
@@ -108,9 +101,8 @@ export default {
             }
           }
       ).then(result => {
-        //console.log("put " + result.data + " to points")
-        //console.log(result);
         this.$emit('onPointAdd', result.data);
+        this.x = Math.round(this.x);
       }, () => {
         console.log("error! token " + currentToken + " is invalid");
         if (!this.refreshed) {

@@ -1,5 +1,9 @@
 <template>
   <div id="point_list" v-if="loaded">
+    <form action="/">
+      <button>Вернуться на главную</button>
+    </form>
+    <button @click="del">Очистить таблицу</button>
     <point-form :points="points" :pointAttr="point" :token="token" :user="user" @onPointAdd="add" @refreshEvent="refreshTokens" ref="Form"/>
     <table>
       <tr>
@@ -12,7 +16,6 @@
       </tr>
       <point-row v-for="point in points" :key="point.id" :point="point" :points="points"/>
     </table>
-    <button @click="del">Очистить таблицу</button>
   </div>
   <div v-else><p>Доступ запрещен!</p></div>
 
@@ -135,6 +138,9 @@ tr:nth-child(2) td{
 }
 tr:hover{
   background-color: lavender;
+}
+form{
+  display: inline;
 }
 
 </style>
