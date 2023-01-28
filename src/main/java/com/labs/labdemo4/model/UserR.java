@@ -2,14 +2,11 @@ package com.labs.labdemo4.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.Objects;
-import java.util.Set;
 
 @JsonAutoDetect
 @Entity
@@ -22,11 +19,6 @@ public class UserR {
     @Id
     private String login;
     private String password;
-
-    public UserR(String login, String password){
-        this.login = login;
-        this.password = password;
-    }
 
     @Override
     public boolean equals(Object o) {
