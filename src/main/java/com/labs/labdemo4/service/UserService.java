@@ -16,8 +16,6 @@ public class UserService {
     @Autowired
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
-        this.userRepo.save(new UserR("anton", "1234"));
-        this.userRepo.save(new UserR("myav", "1234"));
 
     }
 

@@ -2,9 +2,7 @@ package com.labs.labdemo4.controllers;
 
 import com.labs.labdemo4.model.Point;
 import com.labs.labdemo4.repo.PointRepo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -25,7 +23,7 @@ public class PointController {
     }
 
     @GetMapping
-    public List<Point> list(){
+    public List<Point> list() {
         return pointRepo.findAll();
     }
 
@@ -33,9 +31,10 @@ public class PointController {
     public List<Point> findByLogin(@PathVariable("user") String login) {
         return pointRepo.findByLogin(login);
     }
+
     @PostMapping
-    public Point create(@RequestBody Point point){
-        if(!isValid(point)) return null; //is okay?
+    public Point create(@RequestBody Point point) {
+        if (!isValid(point)) return null;
         double currentTime = System.nanoTime();
         point.setCreationDate(LocalDateTime.now());
         point.setResult(isInArea(point.getX(), point.getY(), point.getR()));
@@ -43,14 +42,8 @@ public class PointController {
         return pointRepo.save(point);
     }
 
-    /*@PutMapping("{id}")
-    public Point update(@PathVariable("id") Point pointFromDB, @RequestBody Point point){
-        BeanUtils.copyProperties(point, pointFromDB, "id");
-        return pointRepo.save(pointFromDB);
-    }*/
-
     @DeleteMapping
-    public void delete(){
+    public void delete() {
         pointRepo.deleteAll();
     }
 
