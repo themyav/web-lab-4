@@ -3,26 +3,39 @@
     <h3>Войдите или зарегестрируйтесь</h3>
 
     <div id="enter_form">
-    <label for="login">Логин</label>
+    <label for="login">Логин</label><br/>
     <input type="text" id="login" maxlength="15" placeholder="Введите логин"
            title="Введите логин не длинее 15 символов" v-model="login"/><br>
 
-    <label for="password">Пароль</label>
-    <input type="password" id="password" maxlength="15" placeholder="Введите пароль" v-model="password"/><br>
+     <div>
+       <label for="password">Пароль</label><br/>
+       <input type="password" id="password" maxlength="15" placeholder="Введите пароль" v-model="password"/>
+       <button class="show_button" @click="showPassword"><img id="passwordImage" src="../../public/hide.png" width="40" height="40"/></button><br/>
+     </div>
 
     <div v-if="!this.registration">
       <button id="enter" @click="validateEnter">Войти</button>
       <button @click="switchToRegistration">У меня нет аккаунта</button>
     </div>
 
-    <div v-else><label for="password2">Повторите пароль</label><input type="password" id="password2" maxlength="15"
-                                                                      v-model="passwordRepeated"/><br>
+
+    <div v-else>
+      <div>
+        <label for="password2">Повторите пароль</label>
+        <input type="password" id="password2" maxlength="15" v-model="passwordRepeated"/>
+        <button class="show_button" @click="showPassword"><img id="passwordImage2" src="../../public/hide.png" width="40" height="40"/></button><br/>
+      </div>
+
       <button @click="switchToRegistration">Назад</button>
       <button id="register" @click="validateRegistration">Зарегистрироваться</button>
     </div>
 
     </div>
-  <p>{{ message }}</p></div>
+  <p>{{ message }}</p>
+    <img id="hideImg" hidden src="../../public/hide.png"/>
+    <img id="showImg" hidden src="../../public/show.png"/>
+  </div>
+
 </template>
 
 <script>
@@ -45,6 +58,24 @@ export default {
     }
   },
   methods : {
+    changeVisibility : function (input, button, type){
+      document.getElementById(input).setAttribute("type", type);
+      let id = (type === 'text' ? 'showImg' : 'hideImg');
+      let src = document.getElementById(id).getAttribute("src");
+      document.getElementById(button).setAttribute("src", src);
+    },
+    showPassword : function (e){
+      let id = e.target.id;
+      let src = e.target.src;
+      if(id === "passwordImage"){
+        if(src.match(/hide/)) this.changeVisibility("password", id, "text");
+        else this.changeVisibility("password", id, "password");
+      }
+      else{
+        if(src.match(/hide/)) this.changeVisibility("password2", id, "text");
+        else this.changeVisibility("password2", id, "password");
+      }
+    },
     switchToRegistration : function(){
       this.registration = !this.registration;
     },
@@ -59,9 +90,9 @@ export default {
         }
         return true;
       } else {
-        this.message = 'Поля <<логин>> и <<пароль>> должны быть заполнены!';
-        document.getElementById("login").style.backgroundColor = (this.login.length ? 'white' : 'red');
-        document.getElementById("password").style.backgroundColor = (this.password.length ? 'white' : 'red');
+        this.message = 'Поля "логин" и "пароль" должны быть заполнены!';
+        document.getElementById("login").style.backgroundColor = (this.login.length ? 'white' : 'pink');
+        document.getElementById("password").style.backgroundColor = (this.password.length ? 'white' : 'pink');
         return false;
       }
     },
@@ -157,4 +188,21 @@ title{
 input{
   user-select: none;
 }
+div{
+  position: relative;
+}
+.show_button{
+  background-color: lightgoldenrodyellow;
+  border-radius: 20px;
+  height: 40px;
+  position:absolute; /* добавили */
+  bottom:0; /* добавили */
+  margin: 0 0 0 5px;
+
+}
+.show_button:hover{
+  background-color: #6e00b3;
+  border-radius: 20px;
+}
+
 </style>
